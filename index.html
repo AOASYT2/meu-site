@@ -5,6 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TECH - Celulares e Smartphones</title>
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Estilos para o modal de login */
+        .login-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            position: relative;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-login-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .close-login-btn:hover {
+            color: #000;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -49,32 +89,39 @@
             </div>
         </div>
     </header>
-
     <!-- Main Content -->
     <main>
+        <!-- Products Section -->
+        <section id="productsSection" class="products-section">
+            <div class="hero">
+                <h2>Celulares Premium</h2>
+                <p>Os melhores smartphones do mercado com tecnologia de ponta</p>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </section>
+        
         <!-- Login Section -->
         <section id="loginSection" class="login-section">
             <div class="login-container">
+                <button class="close-login-btn" onclick="closeLoginSection()">✕</button>
                 <div class="login-logo">
                     <h1>TECH</h1>
                     <p>Sua plataforma digital</p>
                 </div>
-
                 <!-- Formulário de Login -->
                 <div id="loginForm" class="form-container">
                     <div class="form-header">
                         <h2>Bem-vindo de volta</h2>
                         <p>Entre na sua conta para continuar</p>
                     </div>
-
                     <div id="loginMessage" class="message"></div>
-
                     <form id="loginFormElement">
                         <div class="form-group">
                             <label for="loginEmail">E-mail</label>
                             <input type="email" id="loginEmail" placeholder="seu@email.com" required>
                         </div>
-
                         <div class="form-group">
                             <label for="loginPassword">Senha</label>
                             <div class="password-toggle">
@@ -87,39 +134,31 @@
                                 </button>
                             </div>
                         </div>
-
                         <button type="submit" class="btn">Entrar</button>
                     </form>
-
                     <div class="divider">
                         <span>ou</span>
                     </div>
-
                     <button type="button" class="btn btn-secondary" onclick="showRegisterForm()">
                         Criar nova conta
                     </button>
                 </div>
-
                 <!-- Formulário de Cadastro -->
                 <div id="registerForm" class="form-container hidden">
                     <div class="form-header">
                         <h2>Criar conta</h2>
                         <p>Preencha os dados para se registrar</p>
                     </div>
-
                     <div id="registerMessage" class="message"></div>
-
                     <form id="registerFormElement">
                         <div class="form-group">
                             <label for="registerName">Nome completo</label>
                             <input type="text" id="registerName" placeholder="João Silva" required>
                         </div>
-
                         <div class="form-group">
                             <label for="registerEmail">E-mail</label>
                             <input type="email" id="registerEmail" placeholder="seu@email.com" required>
                         </div>
-
                         <div class="form-group">
                             <label for="registerPassword">Senha</label>
                             <div class="password-toggle">
@@ -132,7 +171,6 @@
                                 </button>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="confirmPassword">Confirmar senha</label>
                             <div class="password-toggle">
@@ -145,34 +183,18 @@
                                 </button>
                             </div>
                         </div>
-
                         <button type="submit" class="btn">Cadastrar</button>
                     </form>
-
                     <div class="divider">
                         <span>ou</span>
                     </div>
-
                     <button type="button" class="btn btn-secondary" onclick="showLoginForm()">
                         Já tenho uma conta
                     </button>
                 </div>
             </div>
         </section>
-
-        <!-- Products Section -->
-        <section id="productsSection" class="products-section">
-            <div class="hero">
-                <h2>Celulares Premium</h2>
-                <p>Os melhores smartphones do mercado com tecnologia de ponta</p>
-            </div>
-
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be dynamically inserted here -->
-            </div>
-        </section>
     </main>
-
     <!-- Cart Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
@@ -194,126 +216,119 @@
             </button>
         </div>
     </div>
-
     <!-- Overlay -->
     <div class="overlay" id="overlay" onclick="toggleCart()"></div>
-
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
-
     <script>
         // Product data with real phone images
         const products = [
             {
                 id: 1,
                 name: "iPhone 15 Pro Max",
-                price: 9999,
-                image: "/imagens/logo.png"
+                price: 2000,
+                image: "/imagens/2 logo.png"
             },
             {
                 id: 2,
                 name: "Samsung Galaxy S24 Ultra",
                 price: 8499,
-                image: "https://images.samsung.com/is/image/samsung/p6pim/br/2302/gallery/br-galaxy-s23-s918-sm-s918bzkdzto-thumb-535916723"
+                image: "/imagens/image.png"
             },
             {
                 id: 3,
                 name: "Google Pixel 8 Pro",
                 price: 6999,
-                image: "https://store.google.com/products/compare/pixel_8_pro/images/hero.png"
+                image: "/imagens/2image.png"
             },
             {
                 id: 4,
                 name: "OnePlus 12",
                 price: 5499,
-                image: "https://image01.oneplus.net/shop/202312/04/2023120410013695c3a9a5a2e4a1b8b8c3c7d9e1f2a3b.jpg"
+                image: "/imagens/3image.png"
             },
             {
                 id: 5,
                 name: "Xiaomi 14 Ultra",
                 price: 6299,
-                image: "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0/pms_1701375383.7189178.png"
+                image: "/imagens/4image.png"
             },
             {
                 id: 6,
                 name: "Asus ROG Phone 8",
                 price: 7499,
-                image: "https://dlcdnwebimgs.asus.com/gain/9c4a4d5f-6c4f-4e9e-9a1a-8f8c8d7e6f5a.jpg"
+                image: "/imagens/5image.png"
             },
             {
                 id: 7,
                 name: "Motorola Edge 50 Pro",
                 price: 4299,
-                image: "https://motorola-global-portal-pt.cdn.content.amplience.net/i/motorola/motorola-edge-50-pro-prod-hero-black"
+                image: "/imagens/6image.png"
             },
             {
                 id: 8,
                 name: "Sony Xperia 1 V",
                 price: 8999,
-                image: "https://www.sony.com/image/123a4b5c6d7e8f9g0h1i2j3k4l5m6n7o8p9q0r1s2t3u4v5w6x7y8z9"
+                image: "/imagens/7image.png"
             },
             {
                 id: 9,
                 name: "Nothing Phone (2)",
                 price: 4999,
-                image: "https://nothing.com/images/phone-2/phone-2-black-front.png"
+                image: "/imagens/8image.png"
             },
             {
                 id: 10,
                 name: "OPPO Find X6 Pro",
                 price: 6999,
-                image: "https://www.oppo.com/content/dam/oppo/product-asset-library/find-x/find-x6-pro/find-x6-pro-v1-black.png"
+                image: "/imagens/9image.png"
             },
             {
                 id: 11,
                 name: "Vivo X100 Pro",
                 price: 5799,
-                image: "https://www.vivo.com.br/images/x100-pro/x100-pro-asteroid-black.png"
+                image: "/imagens/10image.png"
             },
             {
                 id: 12,
                 name: "Realme GT 5 Pro",
                 price: 3999,
-                image: "https://image01.realme.net/general/20231204/1701688967815.png"
+                image: "/imagens/11image.png"
             }
         ];
-
         // Cart state
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-
         // Users database
         let users = JSON.parse(localStorage.getItem('users')) || [];
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             checkUserSession();
             renderProducts();
             updateCartUI();
         });
-
         // Check user session
         function checkUserSession() {
+            // Sempre mostrar a seção de produtos inicialmente
+            showProductsSection();
+            
+            // Apenas atualizar a UI do usuário se estiver logado
             if (currentUser) {
-                showProductsSection();
                 updateUserUI();
-            } else {
-                showLoginSection();
             }
         }
-
         // Show login section
         function showLoginSection() {
             document.getElementById('loginSection').style.display = 'flex';
-            document.getElementById('productsSection').style.display = 'none';
         }
-
+        // Close login section
+        function closeLoginSection() {
+            document.getElementById('loginSection').style.display = 'none';
+        }
         // Show products section
         function showProductsSection() {
-            document.getElementById('loginSection').style.display = 'none';
             document.getElementById('productsSection').style.display = 'block';
         }
-
         // Update user UI
         function updateUserUI() {
             if (currentUser) {
@@ -327,16 +342,13 @@
                 document.getElementById('logoutBtn').classList.add('hidden');
             }
         }
-
         // Logout
         function logout() {
             currentUser = null;
             localStorage.removeItem('currentUser');
             updateUserUI();
-            showLoginSection();
             showToast('Você saiu da sua conta');
         }
-
         // Render products
         function renderProducts() {
             const productsGrid = document.getElementById('productsGrid');
@@ -364,46 +376,38 @@
                 </div>
             `).join('');
         }
-
         // Login functions
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
             const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
             input.setAttribute('type', type);
         }
-
         function showRegisterForm() {
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('registerForm').classList.remove('hidden');
             clearMessages();
         }
-
         function showLoginForm() {
             document.getElementById('registerForm').classList.add('hidden');
             document.getElementById('loginForm').classList.remove('hidden');
             clearMessages();
         }
-
         function clearMessages() {
             document.getElementById('loginMessage').style.display = 'none';
             document.getElementById('registerMessage').style.display = 'none';
         }
-
         function showMessage(elementId, message, type) {
             const messageEl = document.getElementById(elementId);
             messageEl.textContent = message;
             messageEl.className = `message ${type}`;
             messageEl.style.display = 'block';
         }
-
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
-
         function isValidPassword(password) {
             return password.length >= 6;
         }
-
         // Process login
         document.getElementById('loginFormElement').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -430,13 +434,12 @@
                 updateUserUI();
                 
                 setTimeout(() => {
-                    showProductsSection();
+                    closeLoginSection(); // Apenas fecha o modal de login
                 }, 1000);
             } else {
                 showMessage('loginMessage', 'E-mail ou senha incorretos.', 'error');
             }
         });
-
         // Process register
         document.getElementById('registerFormElement').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -488,28 +491,23 @@
                 showLoginForm();
             }, 2000);
         });
-
         // Cart functions
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             const existingItem = cart.find(item => item.id === productId);
-
             if (existingItem) {
                 existingItem.quantity++;
             } else {
                 cart.push({ ...product, quantity: 1 });
             }
-
             saveCart();
             updateCartUI();
             showToast(`${product.name} adicionado ao carrinho!`);
         }
-
         function buyNow(productId) {
             const product = products.find(p => p.id === productId);
             showToast(`Redirecionando para compra de ${product.name}...`);
         }
-
         function toggleCart() {
             const cartSidebar = document.getElementById('cartSidebar');
             const overlay = document.getElementById('overlay');
@@ -517,15 +515,12 @@
             cartSidebar.classList.toggle('open');
             overlay.classList.toggle('show');
         }
-
         function updateCartUI() {
             const cartCount = document.getElementById('cartCount');
             const cartItems = document.getElementById('cartItems');
             const cartTotal = document.getElementById('cartTotal');
-
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCount.textContent = totalItems;
-
             if (cart.length === 0) {
                 cartItems.innerHTML = '<div class="empty-cart"><p>Seu carrinho está vazio</p></div>';
             } else {
@@ -545,11 +540,9 @@
                     </div>
                 `).join('');
             }
-
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             cartTotal.textContent = `R$ ${total.toLocaleString('pt-BR')}`;
         }
-
         function updateQuantity(productId, change) {
             const item = cart.find(item => item.id === productId);
             if (item) {
@@ -562,17 +555,14 @@
                 }
             }
         }
-
         function removeFromCart(productId) {
             cart = cart.filter(item => item.id !== productId);
             saveCart();
             updateCartUI();
         }
-
         function saveCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
         }
-
         function checkout() {
             if (cart.length === 0) {
                 showToast('Seu carrinho está vazio!');
@@ -580,7 +570,6 @@
             }
             showToast('Redirecionando para o pagamento...');
         }
-
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
